@@ -4,7 +4,7 @@ Make supplementary matterial for Astrochemistry group
 ## **How to use?**
 1. copy necessary outputs to one folder
 1. copy sup.py and draw_mol.vmd to this folder
-or
+    * or
 1. add sup.py to your PATH
 1. open a terminal or command line or powershell
 1. run the sup.py
