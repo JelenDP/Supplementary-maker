@@ -1,11 +1,11 @@
 # Supplementary-maker
 Make supplementary matterial for Astrochemistry group
 
-**How to use?**
-> copy necessary outputs to one folder
-> copy sup.py and draw_mol.vmd to this folder
+## **How to use?**
+0. copy necessary outputs to one folder
+1.b copy sup.py and draw_mol.vmd to this folder
 or
-> add sup.py to your PATH
+1.a add sup.py to your PATH
 > open a terminal or command line or powershell
 > run the sup.py
 >> VMD window apperes with the first molecule
