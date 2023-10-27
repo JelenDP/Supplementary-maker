@@ -12,7 +12,7 @@ import subprocess
 make_img = True
 
 # szükséges programok elérési útja
-vmd = "vmd" #"C://Program Files//VMD//vmd.exe"
+vmd = "C://Program Files//VMD//vmd.exe" #vmd
 povray = "povray"
 
 # koordináták
