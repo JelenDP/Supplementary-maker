@@ -8,6 +8,13 @@ Created on Sun Oct  8 13:07:52 2023
 import os
 import subprocess
 
+# készítse el a képet is?
+make_img = True
+
+# szükséges programok elérési útja
+vmd = "vmd" #"C://Program Files//VMD//vmd.exe"
+povray = "povray"
+
 # koordináták
 # atomicnumbers 
 # ide írd be ami kell, ha a "X atomic number not defined!" hibát kapod
@@ -156,15 +163,16 @@ def read_mol(inp_fn):
             element = atoms[i]
             xyz_file.write(f"{element} {x} {y} {z}\n")
     
-    print("-----------------------------------------------------------------")
-    print("-----------------------------------------------------------------")
-    print("Make The Image:")
-    subprocess.run(["C://Program Files//VMD//vmd.exe", "-e", "draw_mol.vmd"])
-        
-    subprocess.call(["povray",f'-I{pov_fn}',f'-O{img_fn}',
-                             "+W1240","+H1240","+D","+X","+A","+FN"])
-    print("-----------------------------------------------------------------")
-    print("-----------------------------------------------------------------")
+    if make_img:
+        print("-----------------------------------------------------------------")
+        print("-----------------------------------------------------------------")
+        print("Make The Image:")
+        subprocess.run([vmd, "-e", "draw_mol.vmd"])
+            
+        subprocess.call([povray,f'-I{pov_fn}',f'-O{img_fn}',
+                                "+W1240","+H1240","+D","+X","+A","+FN"])
+        print("-----------------------------------------------------------------")
+        print("-----------------------------------------------------------------")
     
     # írjuk ki az eredményeket Latex táblázatokba
     out_fn = "table.tex"
@@ -228,7 +236,7 @@ def read_mol(inp_fn):
             
             out.write("\\\\ \n")
     
-            for mode, freq_hram, freq_anharm, int_anharm in zip(over_modes,over_freq_harms,over_freq_anharms,over_int_anharms):
+            for mode, freq_harm, freq_anharm, int_anharm in zip(over_modes,over_freq_harms,over_freq_anharms,over_int_anharms):
                  line  = "{0:} & ".format(mode)
                  line += "{0: 5.3f} & ".format(freq_harm)
                  line += " & "
@@ -237,15 +245,13 @@ def read_mol(inp_fn):
                  out.write(line)
           
             out.write("\\\\ \n")
-            for mode, freq_hram, freq_anharm, int_anharm in zip(comb_modes,comb_freq_harms,comb_freq_anharms,comb_int_anharms):
+            for mode, freq_harm, freq_anharm, int_anharm in zip(comb_modes,comb_freq_harms,comb_freq_anharms,comb_int_anharms):
                  line  = "{0:} & ".format(mode)
                  line += "{0: 5.3f} & ".format(freq_harm)
                  line += " & "
                  line += "{0: 5.3f} & ".format(freq_anharm)
                  line += "{0: 5.3f} \\\\ \n".format(int_anharm)
                  out.write(line)
-          
-    
     
         else:
             out.write("\\begin{longtable}{rrr} \n")
